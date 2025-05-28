@@ -42,7 +42,7 @@ public class FilmController {
             log.warn("Обновление отклонено — ID не указан");
             throw new ConditionsNotMetException("Id не указан");
         } else if (!films.containsKey(newFilm.getId())) {
-            throw new NotFoundException("Фильм с id = " + newFilm.getId() + " не найден");
+            throw new NotFoundException(String.format("Фильм с id = %d не найден", newFilm.getId()));
         }
         Film oldFilm = films.get(newFilm.getId());
 
@@ -82,7 +82,7 @@ public class FilmController {
             throw new ValidationException("Дата релиза указана неверно");
         } else if (newFilm.getDuration() == null || newFilm.getDuration() <= 0) {
             log.warn("Валидация не пройдена — неверная продолжительность: {}", newFilm.getDuration());
-            throw new ValidationException("Продолжительность указана неверно");
+            throw new ValidationException(String.format("Продолжительность %d указана неверно", newFilm.getDuration()));
         }
     }
 

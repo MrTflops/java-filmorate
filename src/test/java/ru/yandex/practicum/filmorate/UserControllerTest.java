@@ -150,6 +150,7 @@ public class UserControllerTest {
         ConditionsNotMetException exception = assertThrows(ConditionsNotMetException.class, () ->
                 userController.update(userToUpdate));  // Нет ID для обновления
 
-        assertEquals("Id не указан", exception.getMessage());
+        assertEquals("Ошибка при обновлении пользователя: поле id не заполнено. " +
+                "Для обновления необходимо указать существующий ID пользователя", exception.getMessage());
     }
 }
