@@ -46,7 +46,7 @@ public class UserController {
 
         if (newUser.getId() == null) {
             log.warn("Обновление отклонено — ID не указан");
-            throw new ConditionsNotMetException("Id не указан");
+            throw new ConditionsNotMetException("Ошибка обновления пользователя: ID обязателен, но не указан.");
         } else if (!users.containsKey(newUser.getId())) {
             log.warn("Обновление отклонено — пользователь с ID = {} не найден", newUser.getId());
             throw new ConditionsNotMetException("Пользователь с id = " + newUser.getId() + " не найден");
