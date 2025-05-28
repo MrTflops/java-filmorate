@@ -82,7 +82,7 @@ public class FilmController {
             throw new ValidationException("Дата релиза указана неверно");
         } else if (newFilm.getDuration() == null || newFilm.getDuration() <= 0) {
             log.warn("Валидация не пройдена — неверная продолжительность: {}", newFilm.getDuration());
-            throw new ValidationException("Продолжительность фильма должна быть положительным числом");
+            throw new ValidationException("Продолжительность указана неверно");
 
         }
     }
