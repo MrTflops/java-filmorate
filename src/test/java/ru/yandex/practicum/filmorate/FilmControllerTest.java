@@ -37,4 +37,3 @@ class FilmControllerTest {
 
 }
 
-// не понимаю почему в идее красные классы
