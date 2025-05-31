@@ -43,7 +43,7 @@ public class FilmControllerTest {
     }
 
     @Test
-    void returnAllFilms() {
+    void shouldAddFilmToEmptyList() {
         // Проверка, что список фильмов пуст изначально
         Collection<Film> emptyList = filmController.findAll();
         assertNotNull(emptyList);

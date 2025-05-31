@@ -89,7 +89,7 @@ public class UserService {
 
         if (newUser.getId() == null) {
             log.warn("Обновление отклонено — ID не указан");
-            throw new ConditionsNotMetException("Id не указан");
+            throw new ConditionsNotMetException("Ошибка обновления пользователя: ID обязателен, но не указан.");
         }
 
         if (!userStorage.checkId(newUser.getId())) {
