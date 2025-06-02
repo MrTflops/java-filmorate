@@ -35,7 +35,7 @@ public class UserController {
         return userService.getFriends(id);
     }
 
-    @GetMapping("/{id}/friends/common/{otherId}")
+    @GetMapping("/{id}/friends/common/{other-id}")
     Collection<User> getCommonFriends(
             @PathVariable("id") Long userId,
             @PathVariable Long otherId
@@ -56,7 +56,7 @@ public class UserController {
         return userService.update(user);
     }
 
-    @PutMapping("/{id}/friends/{friendId}")
+    @PutMapping("/{id}/friends/{friend-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void putFriend(
             @PathVariable("id") Long userId,
@@ -66,7 +66,7 @@ public class UserController {
         userService.putFriend(userId, friendId);
     }
 
-    @DeleteMapping("/{id}/friends/{friendId}")
+    @DeleteMapping("/{id}/friends/{friend-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteFriend(
             @PathVariable("id") Long userId,

@@ -50,7 +50,7 @@ public class FilmController { //работа с запросами
         return filmService.update(film);
     }
 
-    @PutMapping("/{id}/like/{userId}")
+    @PutMapping("/{id}/like/{user-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void putLike(
             @PathVariable("id") Long filmId,
@@ -60,7 +60,7 @@ public class FilmController { //работа с запросами
         filmService.putLike(filmId, userId);
     }
 
-    @DeleteMapping("/{id}/like/{userId}")
+    @DeleteMapping("/{id}/like/{user-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteLike(
             @PathVariable("id") Long filmId,
