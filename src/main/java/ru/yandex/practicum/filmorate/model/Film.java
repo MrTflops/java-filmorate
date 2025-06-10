@@ -9,6 +9,7 @@ import lombok.experimental.FieldDefaults;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.LinkedHashSet;
 
 @Data
 @EqualsAndHashCode(of = {"id"})
@@ -20,4 +21,6 @@ public class Film {
     LocalDate releaseDate;
     Integer duration;
     final Set<Long> likes = new HashSet<>();
+    Set<Genre> genres = new LinkedHashSet<>();
+    Mpa mpa;
 }
