@@ -9,6 +9,7 @@ import ru.yandex.practicum.filmorate.service.FilmService;
 
 import java.util.Collection;
 
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -21,7 +22,7 @@ public class FilmController { //работа с запросами
     public Film findFilmById(
             @PathVariable Long id
     ) {
-        log.info(String.format("Получен GET-запрос на получение фильма с id = %d", id));
+        log.info("Получен GET-запрос на получение фильма по ID.");
         return filmService.findFilmById(id);
     }
 
@@ -32,41 +33,41 @@ public class FilmController { //работа с запросами
     }
 
     @GetMapping("/popular")
-    public Collection<Film> findPopular(@RequestParam(required = false, defaultValue = "10") Long count) {
-        log.info(String.format("Получен GET-запрос на получение %d популярных фильмов.", count));
+    public Collection<Film> findPopular(@RequestParam(required = false, defaultValue = "10") int count) {
+        log.info("Получен GET-запрос на получение популярных фильмов.");
         return filmService.findPopular(count);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public Film create(@RequestBody Film film) {
-        log.info(String.format("Получен POST-запрос на добавление фильма: %s", film));
+        log.info("Получен POST-запрос на добавление фильма: {}", film);
         return filmService.create(film);
     }
 
     @PutMapping
     public Film update(@RequestBody Film film) {
-        log.info(String.format("Получен PUT-запрос на обновление фильма: %s", film));
+        log.info("Получен PUT-запрос на обновление фильма: {}", film);
         return filmService.update(film);
     }
 
-    @PutMapping("/{id}/like/{user-id}")
+    @PutMapping("/{id}/like/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void putLike(
             @PathVariable("id") Long filmId,
             @PathVariable Long userId
     ) {
-        log.info(String.format("Получен PUT-запрос на постановку лайка фильму id = %d от пользователя id = %d", filmId, userId));
+        log.info("Получен PUT-запрос на постановку лайка");
         filmService.putLike(filmId, userId);
     }
 
-    @DeleteMapping("/{id}/like/{user-id}")
+    @DeleteMapping("/{id}/like/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteLike(
             @PathVariable("id") Long filmId,
             @PathVariable Long userId
     ) {
-        log.info(String.format("Получен DELETE-запрос на удаление лайка фильму id = %d от пользователя id = %d", filmId, userId));
+        log.info("Получен Delete-запрос на удаление лайка");
         filmService.deleteLike(filmId, userId);
     }
 }

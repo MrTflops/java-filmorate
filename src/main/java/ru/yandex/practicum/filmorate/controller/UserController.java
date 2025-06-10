@@ -14,65 +14,77 @@ import java.util.Collection;
 @RequiredArgsConstructor
 @RequestMapping("/users")
 public class UserController {
+    // Константы для путей
+    private static final String ID_PATH = "/{id}";
+    private static final String FRIENDS_PATH = ID_PATH + "/friends";
+    private static final String COMMON_FRIENDS_PATH = FRIENDS_PATH + "/common/{otherId}";
+    private static final String FRIEND_ID_PATH = FRIENDS_PATH + "/{friendId}";
+
+    // Константы для логов
+    private static final String GET_USER_LOG = "Получен GET-запрос на получение пользователя по id {}.";
+    private static final String GET_ALL_USERS_LOG = "Получен GET-запрос на получение всех пользователей.";
+    private static final String GET_FRIENDS_LOG = "Получен GET-запрос на получение всех друзей пользователя {}.";
+    private static final String GET_COMMON_FRIENDS_LOG =
+            "Получен GET-запрос на получение общих друзей пользователя {} с пользователем {}.";
 
     private final UserService userService;
 
-    @GetMapping("/{id}")
+    @GetMapping(ID_PATH)
     public User findUserById(@PathVariable Long id) {
-        log.info(String.format("Получен GET-запрос на получение пользователя по id %d.", id));
+        log.info(GET_USER_LOG, id);
         return userService.findUserById(id);
     }
 
     @GetMapping
     public Collection<User> findAll() {
-        log.info("Получен GET-запрос на получение всех пользователей.");
+        log.info(GET_ALL_USERS_LOG);
         return userService.findAll();
     }
 
-    @GetMapping("/{id}/friends")
-    Collection<User> getFriends(@PathVariable Long id) {
-        log.info(String.format("Получен GET-запрос на получение всех друзей пользователя %d.", id));
+    @GetMapping(FRIENDS_PATH)
+    public Collection<User> getFriends(@PathVariable Long id) {
+        log.info(GET_FRIENDS_LOG, id);
         return userService.getFriends(id);
     }
 
-    @GetMapping("/{id}/friends/common/{other-id}")
-    Collection<User> getCommonFriends(
+    @GetMapping(COMMON_FRIENDS_PATH)
+    public Collection<User> getCommonFriends(
             @PathVariable("id") Long userId,
             @PathVariable Long otherId
     ) {
-        log.info(String.format("Получен GET-запрос на получение общих друзей пользователя %d с пользователем %d.", userId, otherId));
+        log.info(GET_COMMON_FRIENDS_LOG, userId, otherId);
         return userService.getCommonFriends(userId, otherId);
     }
 
     @PostMapping
     public User create(@RequestBody User user) {
-        log.info(String.format("Получен POST-запрос на создание пользователя: %s", user));
+        log.info("Получен POST-запрос на создание пользователя: {}", user);
         return userService.create(user);
     }
 
     @PutMapping
     public User update(@RequestBody User user) {
-        log.info(String.format("Получен PUT-запрос на обновление пользователя: %s", user));
+        log.info("Получен PUT-запрос на обновление пользователя: {}", user);
         return userService.update(user);
     }
 
-    @PutMapping("/{id}/friends/{friend-id}")
+    @PutMapping(FRIEND_ID_PATH)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void putFriend(
             @PathVariable("id") Long userId,
             @PathVariable Long friendId
     ) {
-        log.info(String.format("Получен PUT-запрос на добавление в друзья пользователя %d пользователю %d", userId, friendId));
+        log.info("Получен PUT-запрос на добавление в друзья пользователя {} пользователю {}", friendId, userId);
         userService.putFriend(userId, friendId);
     }
 
-    @DeleteMapping("/{id}/friends/{friend-id}")
+    @DeleteMapping(FRIEND_ID_PATH)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteFriend(
             @PathVariable("id") Long userId,
             @PathVariable Long friendId
     ) {
-        log.info(String.format("Получен DELETE-запрос на удаление пользователя %d из друзей пользователя %d", friendId, userId));
+        log.info("Получен DELETE-запрос на удаление друга {} у пользователя {}", friendId, userId);
         userService.deleteFriend(userId, friendId);
     }
 }
