@@ -19,7 +19,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public User findUserById(@PathVariable Long id) {
-        log.info(String.format("Получен GET-запрос на получение пользователя по id %d.", id));
+        log.info("Получен GET-запроса на получение пользователя по id {}.", id);
         return userService.findUserById(id);
     }
 
@@ -31,48 +31,48 @@ public class UserController {
 
     @GetMapping("/{id}/friends")
     Collection<User> getFriends(@PathVariable Long id) {
-        log.info(String.format("Получен GET-запрос на получение всех друзей пользователя %d.", id));
+        log.info("Получен GET-запрос на получение всех друзей пользователя {}.", id);
         return userService.getFriends(id);
     }
 
-    @GetMapping("/{id}/friends/common/{other-id}")
+    @GetMapping("/{id}/friends/common/{otherId}")
     Collection<User> getCommonFriends(
             @PathVariable("id") Long userId,
             @PathVariable Long otherId
     ) {
-        log.info(String.format("Получен GET-запрос на получение общих друзей пользователя %d с пользователем %d.", userId, otherId));
+        log.info("Получен GET-запрос на получение общих друзей пользователя {} с пользователем {}.", userId, otherId);
         return userService.getCommonFriends(userId, otherId);
     }
 
     @PostMapping
     public User create(@RequestBody User user) {
-        log.info(String.format("Получен POST-запрос на создание пользователя: %s", user));
+        log.info("Получен POST-запрос на создание пользователя: {}", user);
         return userService.create(user);
     }
 
     @PutMapping
     public User update(@RequestBody User user) {
-        log.info(String.format("Получен PUT-запрос на обновление пользователя: %s", user));
+        log.info("Получен PUT-запрос на обновление пользователя: {}", user);
         return userService.update(user);
     }
 
-    @PutMapping("/{id}/friends/{friend-id}")
+    @PutMapping("/{id}/friends/{friendId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void putFriend(
             @PathVariable("id") Long userId,
             @PathVariable Long friendId
     ) {
-        log.info(String.format("Получен PUT-запрос на добавление в друзья пользователя %d пользователю %d", userId, friendId));
+        log.info("Получен PUT-запрос на добавления в друзья");
         userService.putFriend(userId, friendId);
     }
 
-    @DeleteMapping("/{id}/friends/{friend-id}")
+    @DeleteMapping("/{id}/friends/{friendId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteFriend(
             @PathVariable("id") Long userId,
             @PathVariable Long friendId
     ) {
-        log.info(String.format("Получен DELETE-запрос на удаление пользователя %d из друзей пользователя %d", friendId, userId));
+        log.info("Получен Delete-запрос на удаление друга");
         userService.deleteFriend(userId, friendId);
     }
 }
