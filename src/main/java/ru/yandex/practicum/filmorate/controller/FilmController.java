@@ -22,7 +22,7 @@ public class FilmController { //работа с запросами
     public Film findFilmById(
             @PathVariable Long id
     ) {
-        log.info("Получен GET-запрос на получение фильма по айди.");
+        log.info("Получен GET-запрос на получение фильма по ID.");
         return filmService.findFilmById(id);
     }
 

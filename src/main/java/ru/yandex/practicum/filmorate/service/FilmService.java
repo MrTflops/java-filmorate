@@ -24,7 +24,7 @@ public class FilmService { //логика обработки запросов
     private final UserStorage userStorage;
 
     public Film findFilmById(Long id) {
-        log.info("Обработка GET-запроса на получение фильма по айди.");
+        log.info("Обработка GET-запроса на получение фильма по ID.");
         return filmStorage.findFilmById(id)
                 .orElseThrow(() -> {
                     log.warn("Фильм с id = {} не найден", id);
